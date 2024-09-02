@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>JS practice Input table</title>
+    <style>
+        .form-control{width:50%;}
+    </style>
+</head>
+<body>
+
+
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" id="firstName" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col">
+                <input type="text" id="lastName" class="form-control" placeholder="Last Name">
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="addData()">Submit</button>
+    
+        <div class="mt-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+    // Function to add data to the table and save it to localStorage
+    function addData() {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+
+        if (firstName && lastName) {
+            const tableData = JSON.parse(localStorage.getItem("tableData")) || [];
+
+            tableData.push({ firstName, lastName });
+            localStorage.setItem("tableData", JSON.stringify(tableData));
+
+            renderTable();
+            clearInputs();
+        }
+    }
+
+    // Function to render table data from localStorage
+    function renderTable() {
+        const tableBody = document.getElementById("tableBody");
+        const tableData = JSON.parse(localStorage.getItem("tableData")) || [];
+
+        tableBody.innerHTML = tableData.map(row => `
+            <tr>
+                <td>${row.firstName}</td>
+                <td>${row.lastName}</td>
+            </tr>
+        `).join("");
+    }
+
+    // Function to clear input fields
+    function clearInputs() {
+        document.getElementById("firstName").value = "";
+        document.getElementById("lastName").value = "";
+    }
+
+    // Render table data when the page loads
+    window.onload = function() {
+        renderTable();
+    };
+</script>
+
+</body>
+</html>

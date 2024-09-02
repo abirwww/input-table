@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>document.getElementById() অনুশীলন</title>
+</head>
+<body>
+    <input type="text" id="myInput">
+    <button onclick="changeText()">টেক্সট পরিবর্তন করুন</button>
+    <p id="myParagraph"></p>
+
+    <script>
+        function changeText() {
+            // ইনপুট ফিল্ডের মান পাওয়া
+            let inputValue = document.getElementById("myInput").value;
+
+            // প্যারাগ্রাফের টেক্সট সেট করা
+            document.getElementById("myParagraph").textContent = inputValue;
+        }
+    </script>
+</body>
+</html>
